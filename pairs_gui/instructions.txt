@@ -1,0 +1,71 @@
+Dokumentaatio peliin Pairs - Animal alphabet
+
+
+Kirjoittaja:
+
+Nimi: 			Kasperi Kouri
+Sähköposti: 		kasperi.kouri@gmail.com
+
+
+Säännöt ja pelin kulku:
+
+Peli koostuu pelilaudasta jolle asetetaan kortteja selkäpuoli ylöspäin. Korttipakka muodostuu pareista. Pelin tavoitteena on kerätä mahdollisimman monta paria itselleen.  
+
+Pareja etsitään kääntämällä kaksi korttia kerraallan ylöspäin. Mikäli kortit ovat samat eli muodostavat parin, saa parin itselleen ja uuden vuoron. Mikäli kortit eivät ole pari, käännetään kortit takaisin väärinpäin ja vuoro siirtyy seuraavalle.
+
+Kun kortit loppuvat lasketaan jokaisen pelaajan korttien määrä. Eniten pareja kerännyt voittaa. Tasatilanteessa voitto jaetaan.
+
+
+
+Ohjelman toiminta:
+
+Ohjelman alussa näytölle ilmestyy QTextBrowser tyyppinen infokenttä, johon tiedotetaan käyttäjälle oleellista informaatiota ohjelman suorituksesta. Lisäksi näytölle ilmestyy QLineEdit tyyppinen syötekenttä käyttäjäsyötteitä varten. Kenttään voi syöttää pyydettyjä tietoja ASCII-merkkeinä. Syötetieto talletetaan painamalla Enter-näppäintä. 
+
+Pelaajilta kysytään aluksi korttiparien määrää. Syötteeksi käy vain luvut 3-26 eikä esim kirjaimia hyväksytä. Seuraavaksi pelaajilta kysytään pelaajien määrää. Peli on määritetty 1-4 pelaajalle, joten vain kyseisen kokonaislukuvälin luvut käyvät syötteeksi. Viimeisenä pelaajia pyydetään syöttämään erikseen niin monta nimeä kuin valittuja pelaajia on.
+
+Kun syötteet on luettu poistuu käyttäjän syötekenttä näytöltä ja sen tilalle ilmestyy kaksi nappia Start ja Quit. 
+
+Start-napista painamalla peli alkaa ja laudalle syötetään pelaajien aiemmin määrittämä määrä kortteja. Lisäksi Peli ilmoittaa kenen vuoro on aloittaa peli. Start-nappi deaktivoituu painettaessa ja palaa takaisin käyttöön Restart-nappina pelin päätyttyä.
+
+Quit-napista pelin voi sulkea koska vain.
+
+Korttien järjestys arvotaan luomalla QString tyyppinen merkkijono, jossa on aina kaksi samaa merkkiä vastaten korttien arvoa. Merkkijono sekoitetaan randomilla ottamalla siemenluku tietokoneen kellon sen hetkisistä sekunneista. 
+
+Kortit ovat QPushButton painonappeja, joihin on asetettu kuvat sen perusteella kummin päin kortit ovat kullakin hetkellä. Pelaaminen tapahtuu yksin ja ainoastaan klikkailemalla näytöllä näkyviä korttinappeja. 
+
+Vuoron aikana pelaaja pystyy klikkaamaan kahta korttinappia. Samaa nappia ei voi painaa kahdesti, vaan nappi deaktivoituu kääntämisen yhteydessä. Ensimmäinen kortti pysyy näkyvissä niin pitkään kunnes toinen kortti on valittu. Kun toista korttia klikataan ja pöydällä on kaksi korttia näkyvissä deaktivoidaan jokainen pelilaudan korttinappi. Kortit ovat näkyvissä 2 sekunnin ajan, jonka jälkeen ne joko kääntyvät takaisin tai katoavat laudalta riippuen siitä löytyikö pari vai ei. Kummassakin tapauksessa jokainen pelilaudalla jäljellä oleva kortti aktivoidaan uudestaan, jotta niitä voi taas klikata.
+
+Pelin kulkua tiedotetaan inforuudulta esim tietona löydetyistä pareista ja pelaajavuoroista. Peli kestää niin pitkään kuin kortteja on pöydällä, jonka jälkeen lasketaan ja ilmoitetaan tulokset. Tämän jälkeen pelin voi aloittaa alusta Restart-napista, joka on uudelleen aktivoitu Start-nappi.
+
+
+
+Koodista:
+
+Ohjelma koostuu mainin lisäksi kolmesta luokasta ja 27 kuvatiedostosta.
+
+Kuvatiedostot ovat 26kpl korttien eläinkuvia sekä 1kpl korttien taustakuvia. Eläinkuvat on otettu internetistä käyttöoikeudella viittausta vastaan. (Kuvien lähde: <a href="https://www.freepik.com/vectors/design">Design vector created by pikisuperstar - www.freepik.com</a>) Korttien taustakuva on tehty itse.
+
+Luokka Card määrittää yksittäisen kortin pelilaudalla. Kortin parametreina ovat osoitin MainWindowin kortille määritettyyn painonappiin, kortin QString merkkinen kirjainarvo sekä bool merkkinen totuusarvo kortin sen hetkisestä näkyvyydestä.
+
+Luokka Player määrittää yksittäisen pelaajan pelissä. Luokan parametreina ovat QString merkkinen pelaajan nimi sekä vector<QString> merkkinen säiliö pelaajan keräämille korteille.
+
+Luokka MainWindow määrittää pelin visuaalisen ilmeen ja sisältää tärkeimmät toimintamekanismit. MainWindowin ympärille rakentuu koko ohjelma. Funktioita on MainWindowissa monta, mutta ne ovat jaoteltu mainwindow.hh tiedostossa karkeasti seuraavasti:
+
+* Tool-funktiot tekevät ohjelman taustalla jotain merkittävää. Niiden toiminta ei näy visuaalisesti pelaajille, mutta ne esimerkiksi poistavat muistivarauksia ja asettavat peliasetukset alkuasetelmaan.
+* Init-funktiot luovat ja lisäävät ruudulle QWidgettejä
+* Helper-funktiot auttavat Init-funktioita työssään. Ne laskevat esimerkiksi parametreja funktioiden käyttöön.
+* Info-funktiot tarjoavat käyttäjän infokenttään syötteitä pelin kulusta
+* Widget signal -funktiot ovat linkitettyinä QWidgetteihin ja toimivat rajapintana käyttäjälle näkyvien osien ja pelin sisäisen mekaniikan välillä
+* Animation-funktiot tekevät jotain visuaalista
+* Game-funktiot ovat pelimekaniikan ydin ja tekevät pelin kululle kriittisiä asioita
+
+
+
+Tehtävänantoon toteutetut lisäominaisuudet:
+
+* Pelisä on vaihteleva määrä pelaajia. Pelaajien lukumäärä kysytään käyttäjältä pelin alussa
+* Pelaajat pystytään nimeämään. Nimet kysytään pelin alussa ja niitä käytetään läpi ohjelman toiminnan.
+* Pelin päätyttyä peli asetetaan alkutilanteeseen, jotta samoilla asetuksilla voidaan aloittaa uusi peli. Parien määrää, pelaajien määrää tai nimiä ei kuitenkaan voi muokata.
+* Korttien taustapuolella on kuva, joka on kaikissa sama
+* Korttien oikealla puolella on kuva. Kuva vastaa kortin parametreihin talletetulla kirjaimella löytyvää eläintä MainWindow.hh tiedoston parametreista löytyvästä map<QChar, QString> tyyppisessä säiliössä.
+

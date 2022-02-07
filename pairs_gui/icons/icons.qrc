@@ -1,0 +1,31 @@
+<RCC>
+    <qresource prefix="/">
+        <file>alligator.jpg</file>
+        <file>backside.jpg</file>
+        <file>bird.jpg</file>
+        <file>caterpillar.jpg</file>
+        <file>dog.jpg</file>
+        <file>elephant.jpg</file>
+        <file>flamingo.jpg</file>
+        <file>giraffe.jpg</file>
+        <file>horse.jpg</file>
+        <file>iguana.jpg</file>
+        <file>jellyfish.jpg</file>
+        <file>kangaroo.jpg</file>
+        <file>lion.jpg</file>
+        <file>monkey.jpg</file>
+        <file>narwhal.jpg</file>
+        <file>owl.jpg</file>
+        <file>penguin.jpg</file>
+        <file>quail.jpg</file>
+        <file>rabbit.jpg</file>
+        <file>snake.jpg</file>
+        <file>tiger.jpg</file>
+        <file>urraca.jpg</file>
+        <file>vampire bat.jpg</file>
+        <file>worm.jpg</file>
+        <file>xeruz.jpg</file>
+        <file>yak.jpg</file>
+        <file>zebra.jpg</file>
+    </qresource>
+</RCC>
